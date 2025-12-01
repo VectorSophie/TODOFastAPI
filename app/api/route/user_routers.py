@@ -4,7 +4,7 @@ from fastapi import APIRouter
 from fastapi import Depends
 from pydantic import BaseModel
 
-from app.service.user_service import UserService
+from app.deps import get_user_service
 
 # create user
 router = APIRouter(prefix="/users", tags=["users"])
@@ -21,14 +21,11 @@ class UserResponse(BaseModel):
     email: str
     created_at: str
 
-#  di 용도 provider 함수
-def get_user_service() -> UserService:
-    return UserService()
 
 @router.post("/", response_model=UserResponse)
 async def create_user_api(
         user_create_request: UserCreateRequest,
-        user_service = Depends(get_user_service)
+        user_service=Depends(get_user_service)
 ):
     user_service.create_user(
         name=user_create_request.name,
