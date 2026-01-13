@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-DATABASE_URL = "mysql+mysqlconnector://root:my-secret-pw@localhost:3306/mydb"
+DATABASE_URL = "blank"
 
 engine = create_engine(
     DATABASE_URL,
