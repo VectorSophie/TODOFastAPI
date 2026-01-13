@@ -1,10 +1,15 @@
-import mysql.connector
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 
-def get_db():
-    return mysql.connector.connect(
-        host="localhost",
-        port=3306,
-        user="root",
-        password="my-secret-pw",
-        database="mydb"
-    )
+DATABASE_URL = "mysql+mysqlconnector://root:my-secret-pw@localhost:3306/mydb"
+
+engine = create_engine(
+    DATABASE_URL,
+    echo=True  # SQL 로그 보고 싶으면 True, 과제 끝나면 False
+)
+
+SessionLocal = sessionmaker(
+    autocommit=False,
+    autoflush=False,
+    bind=engine
+)

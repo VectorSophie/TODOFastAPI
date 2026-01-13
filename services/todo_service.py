@@ -18,12 +18,10 @@ class TodoService:
         return todo
 
     def update_todo(self, todo_id: int, content: str):
-        affected = self.repo.update(todo_id, content)
-        if affected == 0:
+        if not self.repo.update(todo_id, content):
             raise HTTPException(status_code=404, detail="Todo not found")
         return self.repo.find_by_id(todo_id)
 
     def delete_todo(self, todo_id: int):
-        affected = self.repo.delete(todo_id)
-        if affected == 0:
+        if not self.repo.delete(todo_id):
             raise HTTPException(status_code=404, detail="Todo not found")

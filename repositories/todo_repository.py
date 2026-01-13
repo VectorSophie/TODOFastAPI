@@ -1,81 +1,57 @@
-from database import get_db
+from sqlalchemy.orm import Session
+from database import SessionLocal
+from models.todo import Todo
 
 class TodoRepository:
 
-    def create(self, content: str):
-        conn = get_db()
-        cursor = conn.cursor()
+    def _get_session(self) -> Session:
+        return SessionLocal()
 
-        cursor.execute(
-            "INSERT INTO todo (content) VALUES (%s)",
-            (content,)
-        )
-        conn.commit()
-        todo_id = cursor.lastrowid
+    def create(self, content: str) -> Todo:
+        session = self._get_session()
+        todo = Todo(content=content)
 
-        cursor.execute(
-            "SELECT id, content, created_at FROM todo WHERE id = %s",
-            (todo_id,)
-        )
-        row = cursor.fetchone()
+        session.add(todo)
+        session.commit()
+        session.refresh(todo)
 
-        cursor.close()
-        conn.close()
-        return row
+        session.close()
+        return todo
 
     def find_all(self):
-        conn = get_db()
-        cursor = conn.cursor()
-
-        cursor.execute(
-            "SELECT id, content, created_at FROM todo ORDER BY id DESC"
-        )
-        rows = cursor.fetchall()
-
-        cursor.close()
-        conn.close()
-        return rows
+        session = self._get_session()
+        todos = session.query(Todo).order_by(Todo.id.desc()).all()
+        session.close()
+        return todos
 
     def find_by_id(self, todo_id: int):
-        conn = get_db()
-        cursor = conn.cursor()
+        session = self._get_session()
+        todo = session.query(Todo).filter(Todo.id == todo_id).first()
+        session.close()
+        return todo
 
-        cursor.execute(
-            "SELECT id, content, created_at FROM todo WHERE id = %s",
-            (todo_id,)
-        )
-        row = cursor.fetchone()
+    def update(self, todo_id: int, content: str) -> bool:
+        session = self._get_session()
+        todo = session.query(Todo).filter(Todo.id == todo_id).first()
 
-        cursor.close()
-        conn.close()
-        return row
+        if not todo:
+            session.close()
+            return False
 
-    def update(self, todo_id: int, content: str):
-        conn = get_db()
-        cursor = conn.cursor()
+        todo.content = content
+        session.commit()
+        session.close()
+        return True
 
-        cursor.execute(
-            "UPDATE todo SET content = %s WHERE id = %s",
-            (content, todo_id)
-        )
-        conn.commit()
+    def delete(self, todo_id: int) -> bool:
+        session = self._get_session()
+        todo = session.query(Todo).filter(Todo.id == todo_id).first()
 
-        affected = cursor.rowcount
-        cursor.close()
-        conn.close()
-        return affected
+        if not todo:
+            session.close()
+            return False
 
-    def delete(self, todo_id: int):
-        conn = get_db()
-        cursor = conn.cursor()
-
-        cursor.execute(
-            "DELETE FROM todo WHERE id = %s",
-            (todo_id,)
-        )
-        conn.commit()
-
-        affected = cursor.rowcount
-        cursor.close()
-        conn.close()
-        return affected
+        session.delete(todo)
+        session.commit()
+        session.close()
+        return True
