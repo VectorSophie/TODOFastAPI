@@ -1,0 +1,16 @@
+2026-01-14 15:14:54.198 | INFO     | 29a84e30-771e-4b67-bb0c-01f5de93de9a | REQ method=GET url=http://127.0.0.1:8000/todos/ path=/todos/ query={} headers={'host': '127.0.0.1:8000', 'user-agent': 'PostmanRuntime/7.51.0', 'content-type': 'application/json'}
+2026-01-14 15:14:54.202 | INFO     | 29a84e30-771e-4b67-bb0c-01f5de93de9a | RES status=307 headers={'content-length': '0'} duration_ms=4.7
+2026-01-14 15:14:54.206 | INFO     | fc3a2785-f3be-46d4-a8e9-619f690648aa | REQ method=GET url=http://127.0.0.1:8000/todos path=/todos query={} headers={'host': '127.0.0.1:8000', 'user-agent': 'PostmanRuntime/7.51.0', 'content-type': 'application/json'}
+2026-01-14 15:14:54.330 | INFO     | fc3a2785-f3be-46d4-a8e9-619f690648aa | RES status=200 headers={'content-type': 'application/json', 'content-length': '422'} duration_ms=124.0
+2026-01-14 15:16:05.025 | INFO     | 97bbeb5c-5536-46ea-b2e9-22b062e36efe | REQ method=POST url=http://127.0.0.1:8000/todos/ path=/todos/ query={} headers={'host': '127.0.0.1:8000', 'user-agent': 'PostmanRuntime/7.51.0', 'content-type': 'application/json'} body={
+    "content" : "인생"
+}
+2026-01-14 15:16:05.033 | INFO     | 97bbeb5c-5536-46ea-b2e9-22b062e36efe | RES status=307 headers={'content-length': '0'} duration_ms=10.2
+2026-01-14 15:16:05.039 | INFO     | 59eb8ba4-e12d-4c9b-b5db-f34add6b4144 | REQ method=POST url=http://127.0.0.1:8000/todos path=/todos query={} headers={'host': '127.0.0.1:8000', 'user-agent': 'PostmanRuntime/7.51.0', 'content-type': 'application/json'} body={
+    "content" : "인생"
+}
+2026-01-14 15:16:05.300 | INFO     | 59eb8ba4-e12d-4c9b-b5db-f34add6b4144 | RES status=200 headers={'content-type': 'application/json', 'content-length': '63'} duration_ms=260.1
+2026-01-14 15:21:09.649 | INFO     | e2193367-c48e-424d-a86f-d3e78db9ab1d | REQ method=GET url=http://127.0.0.1:8000/todos/ path=/todos/ query={} headers={'host': '127.0.0.1:8000', 'user-agent': 'PostmanRuntime/7.51.0', 'content-type': 'application/json'}
+2026-01-14 15:21:09.650 | INFO     | e2193367-c48e-424d-a86f-d3e78db9ab1d | RES status=307 headers={'content-length': '0'} duration_ms=1.8
+2026-01-14 15:21:09.654 | INFO     | 60cfae22-0ccb-4323-bf18-120275039fbf | REQ method=GET url=http://127.0.0.1:8000/todos path=/todos query={} headers={'host': '127.0.0.1:8000', 'user-agent': 'PostmanRuntime/7.51.0', 'content-type': 'application/json'}
+2026-01-14 15:21:09.747 | INFO     | 60cfae22-0ccb-4323-bf18-120275039fbf | RES status=200 headers={'content-type': 'application/json', 'content-length': '486'} duration_ms=93.3
