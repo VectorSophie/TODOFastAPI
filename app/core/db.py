@@ -7,8 +7,8 @@ from sqlalchemy.orm import sessionmaker
 
 load_dotenv()
 
-db_user = os.getenv("db_user")
-db_password = os.getenv("db_password")
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
 
 DATABASE_URL = f"mysql+pymysql://{db_user}:{db_password}@localhost:3306/llmagent?charset=utf8mb4"
 
@@ -21,10 +21,15 @@ engine = create_engine(
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
+def get_db():
+  db = SessionLocal()
+  try:
+    yield db
+  finally:
+    db.close()
 
 def get_conn():
   return SessionLocal()
-
 
 def release_conn(conn):
   conn.close()
